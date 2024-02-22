@@ -47,11 +47,13 @@ class _HomeFeedState extends State<HomeFeed> {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        image: DecorationImage(
-            image: NetworkImage(
-              widget.post.images[0].image,
-            ),
-            fit: BoxFit.cover),
+        image: widget.post.images.isNotEmpty
+            ? DecorationImage(
+                image: NetworkImage(
+                  widget.post.images[0].image,
+                ),
+                fit: BoxFit.cover)
+            : null,
       ),
       child: Stack(
         children: [
@@ -124,6 +126,32 @@ class _HomeFeedState extends State<HomeFeed> {
                           Icons.notifications,
                           color: Colors.white,
                         )),
+                    Container(
+                        width: 60,
+                        height: 60,
+                        padding: const EdgeInsets.all(3.0),
+                        margin: const EdgeInsets.only(
+                          right: 12.0,
+                        ),
+                        decoration: const BoxDecoration(
+                            border: GradientBoxBorder(
+                              gradient: LinearGradient(colors: [
+                                Color(0xff3263B0),
+                                Color(0xff3CFEDE),
+                              ]),
+                              width: 2,
+                            ),
+                            shape: BoxShape.circle),
+                        child: Container(
+                          height: double.maxFinite,
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image:
+                                      NetworkImage(widget.post.profileImage!),
+                                  fit: BoxFit.cover)),
+                        )),
                   ],
                 ),
               ),
@@ -187,7 +215,7 @@ class _HomeFeedState extends State<HomeFeed> {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Text('Dubai, United Arab Emirates',
+                                Text(widget.post.country ?? '',
                                     style: GoogleFonts.urbanist(
                                         textStyle: const TextStyle(
                                             fontWeight: FontWeight.w600,
@@ -223,6 +251,55 @@ class _HomeFeedState extends State<HomeFeed> {
                                     ),
                                   )),
                             ),
+                            const AddHeight(0.02),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 12,
+                                  width: 28,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 4.0),
+                                  decoration: BoxDecoration(
+                                      gradient: const LinearGradient(colors: [
+                                        Color(0xffF7631D),
+                                        Color(0xffF9B527),
+                                      ]),
+                                      borderRadius:
+                                          BorderRadius.circular(12.0)),
+                                ),
+                                Container(
+                                  height: 12,
+                                  width: 12,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 4.0),
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
+                                ),
+                                Container(
+                                  height: 12,
+                                  width: 12,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 4.0),
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
+                                ),
+                                Container(
+                                  height: 12,
+                                  width: 12,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 4.0),
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
+                                ),
+                              ],
+                            ),
+                            // const AddHeight(0.02),
                           ],
                         ),
                       )),
@@ -259,7 +336,9 @@ class _HomeFeedState extends State<HomeFeed> {
                                       )),
                                 ),
                                 Text(
-                                  '4.5K',
+                                  widget.post.likes != null
+                                      ? widget.post.likes.toString()
+                                      : '',
                                   style: GoogleFonts.urbanist(
                                       textStyle: const TextStyle(
                                           fontWeight: FontWeight.w600,
@@ -296,7 +375,9 @@ class _HomeFeedState extends State<HomeFeed> {
                                       )),
                                 ),
                                 Text(
-                                  '12.1K',
+                                  widget.post.comments != null
+                                      ? widget.post.comments.toString()
+                                      : '',
                                   style: GoogleFonts.urbanist(
                                       textStyle: const TextStyle(
                                           fontWeight: FontWeight.w600,
@@ -333,7 +414,9 @@ class _HomeFeedState extends State<HomeFeed> {
                                       )),
                                 ),
                                 Text(
-                                  'Share',
+                                  widget.post.shares != null
+                                      ? widget.post.shares.toString()
+                                      : '',
                                   style: GoogleFonts.urbanist(
                                       textStyle: const TextStyle(
                                           fontWeight: FontWeight.w600,

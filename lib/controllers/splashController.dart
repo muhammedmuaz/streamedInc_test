@@ -6,7 +6,7 @@ import 'package:streamedinc_test/routing/app_route_names.dart';
 class SplashController extends GetxController {
   // Run On Start
   void navigateToOnBoarding() {
-    Timer(const Duration(milliseconds: 500),
+    Timer(const Duration(seconds: 2),
         () => AppNavigation.pushReplacementTo(AppRoutesNames.onBoarding));
   }
 
